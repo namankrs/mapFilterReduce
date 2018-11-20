@@ -39,3 +39,16 @@ describe('filter',function(){
     assert.deepEqual(filter(isOdd,[1,2,3,4]),[1,3]);
   })
 })
+
+describe('reduce',function(){
+  it('should work for numbers',function(){
+    assert.deepEqual(reduce(sum,[1,2]),3)
+    assert.deepEqual(reduce(sum,[1,2],4),7)
+    assert.deepEqual(reduce(product,[1,2],),2)
+    assert.deepEqual(reduce(product,[1,2],4),8)
+  })
+  it('should work for undefined',function(){
+    assert.deepEqual(reduce(sum,[]),undefined)
+    assert.deepEqual(reduce(sum,[],4),undefined)
+  })
+})
