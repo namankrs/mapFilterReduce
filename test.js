@@ -1,6 +1,6 @@
 let assert = require("assert");
 let lib = require("./lib.js");
-let {map,filter,reduce} = lib;
+let {map,filter,reduce,every,some} = lib;
 
 const isEven = function(number){
   return(number%2==0);
@@ -50,5 +50,20 @@ describe('reduce',function(){
   it('should work for undefined',function(){
     assert.deepEqual(reduce(sum,[]),undefined)
     assert.deepEqual(reduce(sum,[],4),undefined)
+  })
+})
+describe('every',function(){
+  it('should work for numbers',function(){
+    assert.deepEqual(every(isEven,[2,4,6]),true)
+    assert.deepEqual(every(isEven,[1,2,3]),false)
+  })
+  it('should work for empty arrays',function(){
+    assert.deepEqual(every(isEven,[]),true)
+  })
+})
+
+describe('some',function(){
+  it('should work for numbers',function(){
+    assert.deepEqual(some(isEven,[1,2,3]),true)
   })
 })

@@ -38,4 +38,20 @@ const reduce = function(callback,list,initialiser){
   return initialiser;
 }
 
-module.exports = {map,filter,reduce};
+const every = function(callback,list){
+  for(item of list){
+    if(!callback(item))
+      return false;
+  }
+  return true;
+}
+
+const some = function(callback,list){
+  for (item of list){
+    if(callback(item))
+      return true;
+  }
+  return false;
+}
+module.exports = {map,filter,reduce,every,some};
+
