@@ -8,10 +8,10 @@ const map = function(mapper,list){
 }
 
 //function to replicate filter()
-const filter = function(callback,list){
+const filter = function(predicate,list){
   let processedList = [];
   for(item of list){
-    if(callback(item))
+    if(predicate(item))
       processedList.push(item);
   }
   return processedList;  
@@ -24,42 +24,47 @@ const forEach = function(callback,list){
 }
 
 //function to replicate reduce()
-const reduce = function(callback,list,initialiser){
-  if(!list.length)
+const reduce = function(reducer,list,initialiser){
+  if(!list.length && !initialiser)
     return undefined;
   if(!initialiser){
     initialiser = +list[0];
     list.shift();
   }
   for(item of list){
-    let result = callback(initialiser,item);
+    let result = reducer(initialiser,item);
     initialiser = result;
   }
   return initialiser;
 }
 
-const every = function(callback,list){
+const every = function(predicate,list){
   for(item of list){
-    if(!callback(item))
+    if(!predicate(item))
       return false;
   }
   return true;
 }
 
-const some = function(callback,list){
+const some = function(predicate,list){
   for (item of list){
-    if(callback(item))
+    if(predicate(item))
       return true;
   }
   return false;
 }
 
-const mapByReduce = function(reducer,list){
-  let length = list.length;
-  let result = [];
-  let i = 0;
-  reduce(reducer,[0,1,2,3],result.push(list[i++]))
+const reducerGenerator = function(mapper){
+  return function(initialiser,element){
+    initialiser.push(mapper(element));
+    return initialiser;  
+  }
+}
+
+const mapPrime = function(mapper,list){
+  let reducer = reducerGenerator(mapper);
+  result = reduce(reducer,list,[]);
   return result;
 }
-module.exports = {map,filter,reduce,every,some,mapByReduce};
+module.exports = {map,filter,reduce,every,some,mapPrime};
 
