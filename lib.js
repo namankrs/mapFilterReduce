@@ -53,5 +53,13 @@ const some = function(callback,list){
   }
   return false;
 }
-module.exports = {map,filter,reduce,every,some};
+
+const mapByReduce = function(reducer,list){
+  let length = list.length;
+  let result = [];
+  let i = 0;
+  reduce(reducer,[0,1,2,3],result.push(list[i++]))
+  return result;
+}
+module.exports = {map,filter,reduce,every,some,mapByReduce};
 

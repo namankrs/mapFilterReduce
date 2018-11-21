@@ -1,6 +1,6 @@
 let assert = require("assert");
 let lib = require("./lib.js");
-let {map,filter,reduce,every,some} = lib;
+let {map,filter,reduce,every,some,mapByReduce} = lib;
 
 const isEven = function(number){
   return(number%2==0);
@@ -18,10 +18,10 @@ const isOdd = function(a){
 }
 
 describe('map',function(){
-  it('should work for numbers',function(){
+  it('should preserve length and data type',function(){
     assert.deepEqual(map(x=>x+2,[1,2,3]),[3,4,5]);
   })
-  it('should work for empty array',function(){
+  it('should return empty array for empty array',function(){
     assert.deepEqual(map(x=>x+2,[]),[]);
   })
   it('should work for strings',function(){
@@ -67,3 +67,17 @@ describe('some',function(){
     assert.deepEqual(some(isEven,[1,2,3]),true)
   })
 })
+
+describe('mapByReduce',function(){
+  it('should work for numbers',function(){
+    assert.deepEqual(mapByReduce(x=>x+2,[1,2,3]),[3,4,5]);
+  })
+  it('should work for empty array',function(){
+    assert.deepEqual(mapByReduce(x=>x+2,[]),[]);
+  })
+  it('should work for strings',function(){
+    assert.deepEqual(mapByReduce(x=>x,["nam","an"]),["nam","an"]);
+    assert.deepEqual(mapByReduce(x=>x.length,["nam","an"]),[3,2]);
+  })
+})
+
