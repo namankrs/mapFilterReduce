@@ -69,8 +69,10 @@ const mapPrime = function(mapper,list){
 
 const filterReducerGenerator = function(predicate){
   return function(initialiser,element){
+
     if(predicate(element))
       initialiser.push(element);
+
     return initialiser;
   }
 }
@@ -80,5 +82,20 @@ const filterPrime = function(predicate,list){
   result = reduce(reducer,list,[]);
   return result;
 }
-module.exports = {map,filter,reduce,every,some,mapPrime,filterPrime};
+
+const recursiveMap = function(mapper,list,result = []){
+console.log(list);
+
+  if(list.length == 0)
+    return result;
+
+  result.push(mapper(list[0]));
+  listCopy = list.slice(1);
+    
+  return recursiveMap(mapper,listCopy,result);
+}
+
+module.exports = {map,filter,reduce,
+  every,some,mapPrime,
+  filterPrime,recursiveMap};
 

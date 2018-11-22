@@ -1,6 +1,8 @@
 let assert = require("assert");
-let lib = require("./lib.js");
-let {map,filter,reduce,every,some,mapPrime,filterPrime} = lib;
+let {map,filter,reduce,
+  every,some,mapPrime,
+  filterPrime,recursiveMap} = require("./lib.js");
+ 
 
 const isEven = function(number){
   return(number%2==0);
@@ -86,6 +88,17 @@ describe('filterPrime',function(){
   it('should preserve data type',function(){
     assert.deepEqual(filterPrime(isEven,[1,2,3,4]),[2,4]);
     assert.deepEqual(filterPrime(isOdd,[1,2,3,4]),[1,3]);
+  })
+})
+
+describe('recursiveMap',function(){
+  it('should preserve length and data type',function(){
+    assert.deepEqual(recursiveMap(x=>x,["nam","an"]),["nam","an"]);
+    assert.deepEqual(recursiveMap(x=>x.length,["nam","an"]),[3,2]);
+    assert.deepEqual(recursiveMap(x=>x+2,[1,2,3]),[3,4,5]);
+  })
+  it('should return empty array for empty array',function(){
+    assert.deepEqual(recursiveMap(x=>x+2,[]),[]);
   })
 })
 
