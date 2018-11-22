@@ -1,6 +1,6 @@
 let assert = require("assert");
 let lib = require("./lib.js");
-let {map,filter,reduce,every,some,mapPrime} = lib;
+let {map,filter,reduce,every,some,mapPrime,filterPrime} = lib;
 
 const isEven = function(number){
   return(number%2==0);
@@ -66,7 +66,7 @@ describe('some',function(){
   })
 })
 
-describe('mapByReduce',function(){
+describe('mapPrime',function(){
   it('should work for numbers',function(){
     assert.deepEqual(mapPrime(x=>x+2,[1,2,3]),[3,4,5]);
   })
@@ -76,6 +76,16 @@ describe('mapByReduce',function(){
   it('should work for strings',function(){
     assert.deepEqual(mapPrime(x=>x,["nam","an"]),["nam","an"]);
     assert.deepEqual(mapPrime(x=>x.length,["nam","an"]),[3,2]);
+  })
+})
+
+describe('filterPrime',function(){
+  it('should return empty array for empty array',function(){
+    assert.deepEqual(filterPrime(isEven,[]),[]);
+  })
+  it('should preserve data type',function(){
+    assert.deepEqual(filterPrime(isEven,[1,2,3,4]),[2,4]);
+    assert.deepEqual(filterPrime(isOdd,[1,2,3,4]),[1,3]);
   })
 })
 

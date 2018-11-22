@@ -54,7 +54,7 @@ const some = function(predicate,list){
   return false;
 }
 
-const reducerGenerator = function(mapper){
+const mapReducerGenerator = function(mapper){
   return function(initialiser,element){
     initialiser.push(mapper(element));
     return initialiser;  
@@ -62,9 +62,23 @@ const reducerGenerator = function(mapper){
 }
 
 const mapPrime = function(mapper,list){
-  let reducer = reducerGenerator(mapper);
+  let reducer = mapReducerGenerator(mapper);
   result = reduce(reducer,list,[]);
   return result;
 }
-module.exports = {map,filter,reduce,every,some,mapPrime};
+
+const filterReducerGenerator = function(predicate){
+  return function(initialiser,element){
+    if(predicate(element))
+      initialiser.push(element);
+    return initialiser;
+  }
+}
+
+const filterPrime = function(predicate,list){
+  let reducer = filterReducerGenerator(predicate);
+  result = reduce(reducer,list,[]);
+  return result;
+}
+module.exports = {map,filter,reduce,every,some,mapPrime,filterPrime};
 
